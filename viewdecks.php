@@ -4,8 +4,9 @@
     <link href="funk.css" rel="stylesheet">
   </head>
   <body>
-	<div id='header'><h1>Deck Viewer</h1></div>
-	<br />
+	<?php
+		require('header.php');
+	?>
 	<?php
 
 $fp = fopen("/decks/deck.txt", 'rb');	
@@ -29,10 +30,8 @@ fclose($fp);
 	
 	
 	?>
-	<img src="http://wow.zamimg.com/images/hearthstone/cards/enus/medium/GVG_110.png">
-	<img src="http://wow.zamimg.com/images/hearthstone/cards/enus/medium/AT_132.png">
-	<img src="http://wow.zamimg.com/images/hearthstone/cards/enus/medium/EX1_016.png">
-	<img src="http://wow.zamimg.com/images/hearthstone/cards/enus/medium/EX1_572.png">
-	<img src="http://wow.zamimg.com/images/hearthstone/cards/enus/medium/FP1_030.png">
+	<?php
+		require('footer.php');
+	?>
   </body>
 </html>

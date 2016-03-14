@@ -8,6 +8,8 @@
 	  </table>
 	</div>
 	<div id='menu'>  
-	  <a href="index.html">HOME</a>
-	  <a href="viewdecks.php">DECKS</a>
+	  <a href="http://www.funknelson.com">HOME</a>
+	  <a href="submitdeck.php">SUBMIT DECK</a>
+	  <a href="viewdecks.php">VIEW DECKS</a>
 	</div>
+	</br />
