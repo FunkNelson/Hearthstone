@@ -33,6 +33,17 @@ border-top-style: none;
 border-color: #000000;
 font-weight: bold;
 }
+table.decktable
+{
+background-color: #FFFFFF;
+border-color: #F7883E;
+margin-left: auto;
+margin-right: auto;
+
+}
+
+
+
 table.center {
 margin-left: auto;
 margin-right: auto;

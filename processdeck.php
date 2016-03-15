@@ -85,15 +85,7 @@ if ($decksize === 30)
 		$result_record .= $deckpart."\t";
 	}			
 	
-	echo "<p>$result_string</p>";	
-	echo '<a href="submitdeck.php">Back</a><br />';
-	
-	$fp = fopen("/decks/deck.txt", 'ab');	
-	flock($fp, LOCK_EX);
-	fwrite($fp, $result_record."\n");
-	flock($fp, LOCK_UN);
-	fclose($fp);
-	
+	echo "<p>$result_string</p>";		
 	submitDeck($deck);
 }
 else 
@@ -131,6 +123,7 @@ function submitDeck($deck)
 		echo "Error: $deck[0] not uploaded.<br />";
 	}
 	
+	echo '<a href="submitdeck.php">Back</a><br />';
 	$result->free();
 	$db->close();
 }
