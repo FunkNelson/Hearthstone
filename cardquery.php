@@ -7,10 +7,8 @@ $hero = "";
 $class_query = true;
 
 //DB LOGIN
-$server = "mysql-funknelson1.cafmq2insuyl.us-west-2.rds.amazonaws.com";
-$db_username = "funknelson";
-$db_password = "5n_o![1006uFN";
-$database = "FUNKNELSON1";
+require('db_connection_config.php');
+
 
 if (!$searchterm)
 {
@@ -87,6 +85,8 @@ else
 {
 	$query = "select image_url from cards where hero = '$class_type'";
 }
+
+$query .= "and collectable = 1";
 
 $result = $db->query($query);
 $num_results = $result->num_rows;
