@@ -11,8 +11,16 @@
       <table border="0" class="center">
         <tr>
 	      <td align="right">Deck Name</td>
-	      <td align="center"><input type="text" name="deckname" size="16" maxlength="16" /></td>
+	      <td align="left"><input type="text" name="deckname" size="16" maxlength="16" /></td>
         </tr>
+		<tr>
+	      <td align="right">Descriptor</td>
+	      <td align="left"><input type="text" name="descriptor" size="16" maxlength="16" /></td>
+        </tr>
+		<tr>
+		  <td></td>
+		  <td size="6">Ex: zoo, mech, murloc...</td>
+		</tr>
         <tr>
 	      <td align="right">Style</td>
 	      <td><select name="style">
@@ -21,7 +29,7 @@
 		    <option value = "b">midrange</option>
 		    <option value = "c">control</option>
 		    <option value = "d">mill</option>
-		    <option value = "e">fatigue</option>
+		    <option value = "e">combo</option>
 		    <option value = "f">other</option>
 			</select>
 		  </td>

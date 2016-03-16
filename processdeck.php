@@ -2,6 +2,7 @@
 $class_choice = $_POST['find'];
 $style_choice = $_POST['style'];
 $deckname = $_POST['deckname'];
+$descriptor = $_POST['descriptor'];
 $minions = $_POST['minions'];
 $weapons = $_POST['weapons'];
 $spells = $_POST['spells'];
@@ -61,7 +62,7 @@ switch($style_choice)
 		$style_type = "mill";
 		break;
 	case "e":
-		$style_type = "fatigue";
+		$style_type = "combo";
 		break;
 	case "f":
 		$style_type = "other";
@@ -75,16 +76,8 @@ switch($style_choice)
 
 if ($decksize === 30) 
 { 
-	$deck = array($deckname, $style_type, $class_type, $minions, $spells, $weapons);
-	
-	$result_string = "$deckname is a $style_type $class_type deck with $minions minions, $spells spells and $weapons weapons.";
-	$result_record = "";
-	
-	foreach ($deck as $deckpart)
-	{
-		$result_record .= $deckpart."\t";
-	}			
-	
+	$deck = array($deckname, $descriptor, $style_type, $class_type, $minions, $spells, $weapons);
+	$result_string = "$deckname is a $style_type $descriptor $class_type deck with $minions minions, $spells spells and $weapons weapons.";
 	echo "<p>$result_string</p>";		
 	submitDeck($deck);
 }
@@ -107,12 +100,15 @@ function submitDeck($deck)
 		$deck[0] = addslashes($deck[0]);
 		$deck[1] = addslashes($deck[1]);
 		$deck[2] = addslashes($deck[2]);	
+		$deck[3] = addslashes($deck[3]);	
 	}
 	
-	$query = "insert into decks (name, style, class, minions, spells, weapons) values ";
-	$query .= "('$deck[0]', '$deck[1]', '$deck[2]', '$deck[3]', '$deck[4]', '$deck[5]')";
 	
-	$result = $db->query($query);
+	$query = "insert into decks (name, descriptor, style, class, minions, spells, weapons) values (?, ?, ?, ?, ?, ?, ?)";
+	$stmt = $db->prepare($query);
+	$stmt->bind_param("ssssiii", $deck[0], $deck[1], $deck[2], $deck[3], $deck[4], $deck[5], $deck[6]);
+	$result = $stmt->execute();	
+
 	
 	if ($result)
 	{
@@ -124,7 +120,9 @@ function submitDeck($deck)
 	}
 	
 	echo '<a href="submitdeck.php">Back</a><br />';
+	
 	$result->free();
+	$stmt->close();
 	$db->close();
 }
 

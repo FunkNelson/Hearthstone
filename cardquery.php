@@ -74,7 +74,7 @@ switch($hero_choice)
 //Create SQL query
 if (strlen($searchterm) > 0)
 {
-	$query = "select image_url from cards where name like '%$searchterm%'";
+	$query = "select name, hero, type, quality, race, expansion, mana, attack, health from cards where name like '%$searchterm%'";
 	
 	if ($class_query)
 	{
@@ -83,16 +83,22 @@ if (strlen($searchterm) > 0)
 }
 else
 {
-	$query = "select image_url from cards where hero = '$class_type'";
+	$query = "select name, type, quality, race, expansion, mana, attack, health from cards where hero = '$class_type'";
 }
 
-$query .= "and collectable = 1";
+$query .= "and collectable = 1 and type in ('minion', 'spell', 'weapon')";
 
 $result = $db->query($query);
-$num_results = $result->num_rows;
 
-echo "<p>$num_results cards found  |  <a href=\"cardlookup.php\">Look up more cards</a></p>";
 
+construct_results_table($result);
+
+//$num_results = $result->num_rows;
+
+//echo "<p>$num_results cards found  |  <a href=\"cardlookup.php\">Look up more cards</a></p>";
+
+// SHOWS CARD IMAGES, BUT IS VERY SLOW TO LOAD
+/*
 for ($i = 0; $i < $num_results; $i++)
 {
 	$row = $result->fetch_assoc();	
@@ -103,8 +109,77 @@ for ($i = 0; $i < $num_results; $i++)
 		echo "<br />";
 	}	
 }
+*/
 
 echo "<br />";
 $result->free();
 $db->close();
+
+
+function construct_results_table($result)
+{
+	$num_results = $result->num_rows;
+	echo "<p>$num_results cards found  |  <a href=\"cardlookup.php\">Look up more cards</a></p>";
+	
+	echo '<table border="0" class="decktable">';
+	echo "<tr bgcolor=\"#000000\">";
+	echo '<th style="width:300px"><font color=\"#FFFFFF\">Name</font></th>';
+	echo "<th style=\"width:100px\"><font color=\"#FFFFFF\">Hero</font></th>";
+	echo "<th style=\"width:100px\"><font color=\"#FFFFFF\">Type</font></th>";
+	echo "<th style=\"width:100px\"><font color=\"#FFFFFF\">Race</font></th>";
+	echo "<th style=\"width:100px\"><font color=\"#FFFFFF\">Expansion</font></th>";
+	echo "<th style=\"width:80px\"><font color=\"#FFFFFF\">Mana</font></th>";
+	echo "<th style=\"width:80px\"><font color=\"#FFFFFF\">Attack</font></th>";
+	echo "<th style=\"width:80px\"><font color=\"#FFFFFF\">Health</font></th>";
+	echo "</font></tr>";
+
+	for ($i = 0; $i < $num_results; $i++)
+	{
+		$row = $result->fetch_assoc();
+		$color = determine_quality($row['quality']);
+		
+		if ($i % 2 === 1) 
+		{
+			echo "<tr bgcolor=\"#E2E1DF\">";
+		}
+		else 
+		{
+			echo "<tr>";
+		}
+		
+		echo "<td><font color=\"$color\"><b>".$row['name']."</b></font></td>";
+		echo "<td>".$row['hero']."</td>";
+		echo "<td>".$row['type']."</td>";
+		echo "<td>".$row['race']."</td>";
+		echo "<td>".$row['expansion']."</td>";
+		echo "<td>".$row['mana']."</td>";
+		echo "<td>".$row['attack']."</td>";
+		echo "<td>".$row['health']."</td>";
+		echo "</tr>";
+	}	
+	
+	echo "</table>";
+}
+
+function determine_quality($quality)
+{
+	switch($quality)
+	{
+		case "rare":
+			$color = "#0000FF";
+			break;
+		case "epic":
+			$color = "#FF00FF";
+			break;
+		case "legendary":
+			$color = "#F0AF26";
+			break;
+		default:
+			$color = "#000000";
+			break;
+	}
+	
+	return $color;
+}
+
 ?>
