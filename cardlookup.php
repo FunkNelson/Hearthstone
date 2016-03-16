@@ -79,6 +79,17 @@
 		  </td>
 		</tr>
 		<tr>
+		  <td align="right">Card type </td>
+		  <td align="center">is</td>
+		  <td><select name="type">
+		    <option value = "all">All</option>
+			<option value = "minion">Minion</option>
+			<option value = "spell">Spell</option>
+		    <option value = "weapon">Weapon</option>
+   		    <select>
+		  </td>
+		</tr>
+		<tr>
 		  <td align="right">Mana </td>
 		  <td align="center"><select name="mana_operand">
 			<option value = "=">=</option>

@@ -3,6 +3,7 @@ $searchtype = $_POST['searchtype'];
 $hero = $_POST['hero'];
 $race = $_POST['race'];
 $mechanic = $_POST['mechanic'];
+$type = $_POST['type'];
 $mana = $_POST['mana'];
 $attack = $_POST['attack'];
 $health = $_POST['health'];
@@ -31,7 +32,7 @@ if (mysqli_connect_errno())
 }
 
 
-$query = construct_query($hero, $searchterm, $mana, $mana_operand, $attack, $attack_operand, $health, $health_operand, $race, $mechanic);
+$query = construct_query($hero, $searchterm, $mana, $mana_operand, $attack, $attack_operand, $health, $health_operand, $race, $mechanic, $type);
 
 //debug query
 //echo $query;
@@ -45,7 +46,7 @@ $db->close();
 
 
 
-function construct_query($hero, $searchterm, $mana, $mana_operand, $attack, $attack_operand, $health, $health_operand, $race, $mechanic) {
+function construct_query($hero, $searchterm, $mana, $mana_operand, $attack, $attack_operand, $health, $health_operand, $race, $mechanic, $type) {
 
 	$query = "select name, hero, type, quality, race, expansion, mana, attack, health from cards where collectable = 1 and type in ('minion', 'spell', 'weapon')";	
 	
@@ -67,6 +68,11 @@ function construct_query($hero, $searchterm, $mana, $mana_operand, $attack, $att
 	if ($mechanic != "all")
 	{
 		$query .= " and $mechanic = 1";
+	}
+
+	if ($cardtype != "all")
+	{
+		$query .= " and type = '$type'";
 	}
 	
 	if (!empty ($mana))
