@@ -50,6 +50,35 @@
 		  </td>
 		</tr>
 		<tr>
+		  <td align="right">Mechanic </td>
+		  <td align="center">is</td>
+		  <td><select name="mechanic">
+		    <option value = "all">All</option>
+			<option value = "battlecry">Battlecry</option>
+			<option value = "charge">Charge</option>
+		    <option value = "choose">Choose</option>
+		    <option value = "combo">Combo</option>
+		    <option value = "deathrattle">Deathrattle</option>
+		    <option value = "discover">Discover</option>
+		    <option value = "divineshield">Divine Shield</option>
+			<option value = "enrage">Enrage</option>
+			<option value = "freeze">Freeze</option>
+		    <option value = "immune">Immune</option>
+		    <option value = "inspire">Inspire</option>
+		    <option value = "joust">Joust</option>
+		    <option value = "overload">Overload</option>
+		    <option value = "secret">Secret</option>
+			<option value = "silence">Silence</option>
+		    <option value = "spelldamage">Spell Damage</option>
+		    <option value = "stealth">Stealth</option>
+		    <option value = "summon">Summon</option>
+		    <option value = "taunt">Taunt</option>
+		    <option value = "transform">Transform</option>				
+			<option value = "windfury">Windfury</option>
+   		    <select>
+		  </td>
+		</tr>
+		<tr>
 		  <td align="right">Mana </td>
 		  <td align="center"><select name="mana_operand">
 			<option value = "=">=</option>

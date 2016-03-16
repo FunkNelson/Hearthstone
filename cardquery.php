@@ -1,8 +1,8 @@
 <?php
 $searchtype = $_POST['searchtype'];
-$searchterm = $_POST['searchterm'];
 $hero = $_POST['hero'];
 $race = $_POST['race'];
+$mechanic = $_POST['mechanic'];
 $mana = $_POST['mana'];
 $attack = $_POST['attack'];
 $health = $_POST['health'];
@@ -15,14 +15,6 @@ $health_operand = $_POST['health_operand'];
 
 //DB LOGIN
 require('db_connection_config.php');
-
-/*
-if (!$searchterm)
-{
-	echo "You didn't search for anything.  Try more.";
-	exit;
-}
-*/
 
 if (!get_magic_quotes_gpc())
 {
@@ -39,7 +31,7 @@ if (mysqli_connect_errno())
 }
 
 
-$query = construct_query($hero, $searchterm, $mana, $mana_operand, $attack, $attack_operand, $health, $health_operand, $race);
+$query = construct_query($hero, $searchterm, $mana, $mana_operand, $attack, $attack_operand, $health, $health_operand, $race, $mechanic);
 
 //debug query
 //echo $query;
@@ -53,7 +45,7 @@ $db->close();
 
 
 
-function construct_query($hero, $searchterm, $mana, $mana_operand, $attack, $attack_operand, $health, $health_operand, $race) {
+function construct_query($hero, $searchterm, $mana, $mana_operand, $attack, $attack_operand, $health, $health_operand, $race, $mechanic) {
 
 	$query = "select name, hero, type, quality, race, expansion, mana, attack, health from cards where collectable = 1 and type in ('minion', 'spell', 'weapon')";	
 	
@@ -70,6 +62,11 @@ function construct_query($hero, $searchterm, $mana, $mana_operand, $attack, $att
 	if ($race != "all")
 	{
 		$query .= " and race = '$race'";
+	}
+
+	if ($mechanic != "all")
+	{
+		$query .= " and $mechanic = 1";
 	}
 	
 	if (!empty ($mana))
